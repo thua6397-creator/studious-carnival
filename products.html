@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Sản phẩm - OURS Bakery</title>
+</head>
+<body>
+    <!-- HEADER (Đã thêm các mục Cafe và Đồ uống vào thanh điều hướng) -->
+    <header style="background: #fff; padding: 20px 10%; border-bottom: 2px solid #F5E9DD; display: flex; justify-content: space-between; align-items: center;">
+        <a href="index.html" style="font-size: 24px; font-weight: bold; color: #8B5E3C; text-decoration: none;">OURS Bakery</a>
+        <nav>
+            <a href="products.html" style="margin: 0 15px; text-decoration: none; color: #555;">Tất cả</a>
+            <a href="products.html?cat=kem" style="margin: 0 15px; text-decoration: none; color: #555;">Bánh Kem</a>
+            <a href="products.html?cat=nho" style="margin: 0 15px; text-decoration: none; color: #555;">Bánh Nhỏ</a>
+            <a href="products.html?cat=cafe" style="margin: 0 15px; text-decoration: none; color: #555;">Cà phê</a>
+            <a href="products.html?cat=do-uong" style="margin: 0 15px; text-decoration: none; color: #555;">Đồ uống</a>
+            <a href="cart.html" style="font-weight: bold; color: #B8875C; margin-left: 15px;">🛒 Giỏ hàng</a>
+        </nav>
+    </header>
+
+    <main style="padding: 50px 10%;">
+        <h2 id="title" style="text-align: center; color: #8B5E3C;">Menu Bánh Ngọt & Đồ Uống</h2>
+        
+        <div class="product-container" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;">
+            
+            <!-- ================= DANH MỤC: BÁNH KEM (CŨ) ================= -->
+            <div class="product-card" data-category="kem" style="border: 1px solid #eee; padding: 15px; border-radius: 15px;">
+                <img src="images/bkd.jpeg" style="width: 100%; height: 200px; object-fit: cover;">
+                <h3>Bánh Kem Dâu</h3>
+                <p>350.000đ</p>
+                <button onclick="addToCart('Bánh Kem Dâu', 350000)" style="width: 100%; padding: 10px; background: #B8875C; color: white; border: none; cursor: pointer;">Thêm vào giỏ</button>
+            </div>
+            <div class="product-card" data-category="kem" style="border: 1px solid #eee; padding: 15px; border-radius: 15px;">
+                <img src="images/b3.jpeg" style="width: 100%; height: 200px; object-fit: cover;">
+                <h3>Bánh Kem Hoa Quả</h3>
+                <p>450.000đ</p>
+                <button onclick="addToCart('Bánh Kem Hoa Quả', 450000)" style="width: 100%; padding: 10px; background: #B8875C; color: white; border: none; cursor: pointer;">Thêm vào giỏ</button>
+            </div>
+            <div class="product-card" data-category="kem" style="border: 1px solid #eee; padding: 15px; border-radius: 15px;">
+                <img src="images/b17.jpeg" style="width: 100%; height: 200px; object-fit: cover;">
+                <h3>Bánh Kem Chocolate</h3>
+                <p>450.000đ</p>
+                <button onclick="addToCart('Bánh Kem Chocolate', 450000)" style="width: 100%; padding: 10px; background: #B8875C; color: white; border: none; cursor: pointer;">Thêm vào giỏ</button>
+            </div>
+            <div class="product-card" data-category="kem" style="border: 1px solid #eee; padding: 15px; border-radius: 15px;">
+                <img src="images/b18.jpeg" style="width: 100%; height: 200px; object-fit: cover;">
+                <h3>Bánh Kem Hoa</h3>
+                <p>750.000đ</p>
+                <button onclick="addToCart('Bánh Kem Hoa', 750000)" style="width: 100%; padding: 10px; background: #B8875C; color: white; border: none; cursor: pointer;">Thêm vào giỏ</button>
+            </div>
+
+            <!-- ================= DANH MỤC: BÁNH NHỎ (CŨ) ================= -->
+            <div class="product-card" data-category="nho" style="border: 1px solid #eee; padding: 15px; border-radius: 15px;">
+                <img src="images/dn.jpeg" style="width: 100%; height: 200px; object-fit: cover;">
+                <h3>Donut</h3>
+                <p>45.000đ</p>
+                <button onclick="addToCart('Donut', 45000)" style="width: 100%; padding: 10px; background: #B8875C; color: white; border: none; cursor: pointer;">Thêm vào giỏ</button>
+            </div>
+            <div class="product-card" data-category="nho" style="border: 1px solid #eee; padding: 15px; border-radius: 15px;">
+                <img src="images/b1.jpeg" style="width: 100%; height: 200px; object-fit: cover;">
+                <h3>Macaron</h3>
+                <p>100.000đ</p>
+                <button onclick="addToCart('Macaron', 100000)" style="width: 100%; padding: 10px; background: #B8875C; color: white; border: none; cursor: pointer;">Thêm vào giỏ</button>
+            </div>
+            <div class="product-card" data-category="nho" style="border: 1px solid #eee; padding: 15px; border-radius: 15px;">
+                <img src="images/b19.jpeg" style="width: 100%; height: 200px; object-fit: cover;">
+                <h3>Tar trứng</h3>
+                <p>45.000đ</p>
+                <button onclick="addToCart('Tar trứng', 45000)" style="width: 100%; padding: 10px; background: #B8875C; color: white; border: none; cursor: pointer;">Thêm vào giỏ</button>
+            </div>
+            <div class="product-card" data-category="nho" style="border: 1px solid #eee; padding: 15px; border-radius: 15px;">
+                <img src="images/b20.jpeg" style="width: 100%; height: 200px; object-fit: cover;">
+                <h3>Tar Hoa Quả</h3>
+                <p>70.000đ</p>
+                <button onclick="addToCart('Tar Hoa Quả', 70000)" style="width: 100%; padding: 10px; background: #B8875C; color: white; border: none; cursor: pointer;">Thêm vào giỏ</button>
+            </div>
+
+            <!-- ================= DANH MỤC MỚI: CÀ PHÊ ================= -->
+            <div class="product-card" data-category="cafe" style="border: 1px solid #eee; padding: 15px; border-radius: 15px;">
+                <img src="images/nau.jpeg" style="width: 100%; height: 200px; object-fit: cover;">
+                <h3>Cà Phê Sữa Đá</h3>
+                <p>35.000đ</p>
+                <button onclick="addToCart('Cà Phê Sữa Đá', 35000)" style="width: 100%; padding: 10px; background: #B8875C; color: white; border: none; cursor: pointer;">Thêm vào giỏ</button>
+            </div>
+            <div class="product-card" data-category="cafe" style="border: 1px solid #eee; padding: 15px; border-radius: 15px;">
+                <img src="images/bxiu.jpeg" style="width: 100%; height: 200px; object-fit: cover;">
+                <h3>Bạc Xỉu</h3>
+                <p>40.000đ</p>
+                <button onclick="addToCart('Bạc Xỉu', 40000)" style="width: 100%; padding: 10px; background: #B8875C; color: white; border: none; cursor: pointer;">Thêm vào giỏ</button>
+            </div>
+            <div class="product-card" data-category="cafe" style="border: 1px solid #eee; padding: 15px; border-radius: 15px;">
+                <img src="images/đ.jpeg" style="width: 100%; height: 200px; object-fit: cover;">
+                <h3>Cà Phê Đen</h3>
+                <p>30.000đ</p>
+                <button onclick="addToCart('Cà Phê Đen', 30000)" style="width: 100%; padding: 10px; background: #B8875C; color: white; border: none; cursor: pointer;">Thêm vào giỏ</button>
+            </div>
+
+            <!-- ================= DANH MỤC MỚI: ĐỒ UỐNG ================= -->
+            <div class="product-card" data-category="do-uong" style="border: 1px solid #eee; padding: 15px; border-radius: 15px;">
+                <img src="images/mcha.jpeg" style="width: 100%; height: 200px; object-fit: cover;">
+                <h3>Matcha Latte</h3>
+                <p>55.000đ</p>
+                <button onclick="addToCart('Matcha Latte', 55000)" style="width: 100%; padding: 10px; background: #B8875C; color: white; border: none; cursor: pointer;">Thêm vào giỏ</button>
+            </div>
+            <div class="product-card" data-category="do-uong" style="border: 1px solid #eee; padding: 15px; border-radius: 15px;">
+                <img src="images/mcdt.jpeg" style="width: 100%; height: 200px; object-fit: cover;">
+                <h3>Matcha Dâu Tây</h3>
+                <p>75.000đ</p>
+                <button onclick="addToCart('Matcha Dâu Tây', 75000)" style="width: 100%; padding: 10px; background: #B8875C; color: white; border: none; cursor: pointer;">Thêm vào giỏ</button>
+            </div>
+            <div class="product-card" data-category="do-uong" style="border: 1px solid #eee; padding: 15px; border-radius: 15px;">
+                <img src="images/mckc.jpeg" style="width: 100%; height: 200px; object-fit: cover;">
+                <h3>Matcha Kem Cheese</h3>
+                <p>65.000đ</p>
+                <button onclick="addToCart('Matcha Kem Cheese', 65000)" style="width: 100%; padding: 10px; background: #B8875C; color: white; border: none; cursor: pointer;">Thêm vào giỏ</button>
+            </div>
+            <div class="product-card" data-category="do-uong" style="border: 1px solid #eee; padding: 15px; border-radius: 15px;">
+                <img src="images/trà đào.jpeg" style="width: 100%; height: 200px; object-fit: cover;">
+                <h3>Trà Đào Cam Sả</h3>
+                <p>45.000đ</p>
+                <button onclick="addToCart('Trà Đào Cam Sả', 45000)" style="width: 100%; padding: 10px; background: #B8875C; color: white; border: none; cursor: pointer;">Thêm vào giỏ</button>
+            </div>
+           <div class="product-card" data-category="do-uong" style="border: 1px solid #eee; padding: 15px; border-radius: 15px;">
+                <img src="images/trà dâu.jpeg" style="width: 100%; height: 200px; object-fit: cover;">
+                <h3>Trà Dâu</h3>
+                <p>45.000đ</p>
+                <button onclick="addToCart('Trà Dâu', 45000)" style="width: 100%; padding: 10px; background: #B8875C; color: white; border: none; cursor: pointer;">Thêm vào giỏ</button>
+            </div> 
+            <div class="product-card" data-category="do-uong" style="border: 1px solid #eee; padding: 15px; border-radius: 15px;">
+                <img src="images/tắc dừa.jpeg" style="width: 100%; height: 200px; object-fit: cover;">
+                <h3>Trà Tắc Dừa</h3>
+                <p>45.000đ</p>
+                <button onclick="addToCart('Trà Tắc Dừa', 45000)" style="width: 100%; padding: 10px; background: #B8875C; color: white; border: none; cursor: pointer;">Thêm vào giỏ</button>
+            </div> 
+
+        </div>
+    </main>
+
+    <script>
+        // 1. CHỨC NĂNG THÊM VÀO GIỎ
+        function addToCart(name, price) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.push({ name: name, price: price });
+            localStorage.setItem('cart', JSON.stringify(cart));
+            alert("Đã thêm " + name + " vào giỏ!");
+        }
+
+        // 2. CHỨC NĂNG LÒC DANH MỤC TỰ ĐỘNG
+        const urlParams = new URLSearchParams(window.location.search);
+        const cat = urlParams.get('cat');
+        const cards = document.querySelectorAll('.product-card');
+
+        if (cat) {
+            cards.forEach(card => {
+                if (card.getAttribute('data-category') === cat) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Cập nhật tiêu đề trang tương ứng với danh mục được chọn
+            let categoryName = "";
+            if (cat === 'kem') categoryName = "Bánh Kem";
+            else if (cat === 'nho') categoryName = "Bánh Nhỏ";
+            else if (cat === 'cafe') categoryName = "Cà phê";
+            else if (cat === 'do-uong') categoryName = "Đồ uống";
+
+            document.getElementById('title').innerText = "Danh mục: " + categoryName;
+        } else {
+            // Nếu không có tham số ?cat, hiển thị tất cả sản phẩm
+            cards.forEach(card => card.style.display = 'block');
+        }
+    </script>
+</body>
+</html>

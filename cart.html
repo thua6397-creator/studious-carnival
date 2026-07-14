@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giỏ Hàng - Ours Bakery</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header style="background: #fff; padding: 20px 10%; border-bottom: 2px solid #F5E9DD; display: flex; justify-content: space-between; align-items: center;">
+    <div class="logo">
+        <a href="index.html" style="text-decoration: none; display: flex; align-items: center; gap: 10px;">
+            <img src="images/logo.png" alt="Logo" style="width: 50px; height: 50px; border-radius: 50%;">
+            <span style="font-size: 24px; font-weight: bold; color: #8B5E3C;">OURS Bakery</span>
+        </a>
+    </div>
+    <nav>
+        <a href="index.html" style="margin: 0 15px; text-decoration: none; color: #555;">Trang chủ</a>
+        <a href="products.html" style="margin: 0 15px; text-decoration: none; color: #555;">Sản phẩm</a>
+        <a href="about.html" style="margin: 0 15px; text-decoration: none; color: #555;">Giới thiệu</a>
+        <a href="contact.html" style="margin: 0 15px; text-decoration: none; color: #555;">Liên hệ</a>
+        <a href="cart.html" style="margin: 0 15px; text-decoration: none; color: #e276b6; font-weight: bold;">
+            🛒 Giỏ hàng (<span id="cart-count">0</span>)
+        </a>
+    </nav>
+</header>
+
+<main style="padding: 50px 10%;">
+    <h2>Giỏ hàng của bạn</h2>
+    <table class="cart-table" style="width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.02);">
+        <thead>
+            <tr style="background: #B8875C; color: white;">
+                <th style="padding: 15px;">Hình ảnh</th>
+                <th style="padding: 15px;">Tên sản phẩm</th>
+                <th style="padding: 15px;">Giá</th>
+                <th style="padding: 15px;">Số lượng</th>
+                <th style="padding: 15px;">Tổng cộng</th>
+                <th style="padding: 15px;">Hành động</th>
+            </tr>
+        </thead>
+        <tbody id="cart-items" style="text-align: center;">
+        </tbody>
+    </table>
+
+    <!-- KHU VỰC CHỌN PHƯƠNG THỨC THANH TOÁN -->
+    <div class="payment-methods-box" style="background: white; padding: 25px; border-radius: 8px; margin-top: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.02); border: 1px solid #eee;">
+        <h3 style="color: #8B5E3C; margin-top: 0; margin-bottom: 15px;">Phương thức thanh toán</h3>
+        <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-weight: bold;">
+                <input type="radio" name="payment-method" value="cash" checked onchange="togglePaymentInfo()"> 💵 Tiền mặt khi nhận hàng
+            </label>
+            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-weight: bold;">
+                <input type="radio" name="payment-method" value="transfer" onchange="togglePaymentInfo()"> 🏦 Chuyển khoản ngân hàng
+            </label>
+            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-weight: bold;">
+                <input type="radio" name="payment-method" value="card" onchange="togglePaymentInfo()"> 💳 Thẻ tín dụng / ATM
+            </label>
+        </div>
+
+        <!-- THÔNG TIN CHUYỂN KHOẢN (ẨN/HIỆN ĐỘNG) -->
+        <div id="transfer-info" style="display: none; margin-top: 20px; padding: 15px; background: #fdfaf7; border-left: 4px solid #B8875C; border-radius: 4px;">
+            <p style="margin: 5px 0;"><strong>Ngân hàng:</strong> Vietcombank (VCB)</p>
+            <p style="margin: 5px 0;"><strong>Số tài khoản:</strong> 1023456789</p>
+            <p style="margin: 5px 0;"><strong>Chủ tài khoản:</strong> OURS BAKERY SHOP</p>
+            <p style="margin: 5px 0; color: #ff4d4d;">* Vui lòng nhập nội dung chuyển khoản là SĐT của bạn.</p>
+        </div>
+    </div>
+
+    <div class="cart-total-box" style="background: white; padding: 20px; border-radius: 8px; margin-top: 30px; text-align: right; box-shadow: 0 4px 10px rgba(0,0,0,0.02);">
+        <h3>Tổng tiền thanh toán: <span id="cart-total-price" style="color:#B8875C;">0đ</span></h3>
+        <button class="checkout-btn" style="background: #e276b6; color: white; border: none; padding: 12px 30px; font-size: 16px; border-radius: 5px; cursor: pointer; font-weight: bold;" onclick="processCheckout()">Tiến hành thanh toán</button>
+    </div>
+</main>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const imageMap = {
+            "Bánh Kem Dâu": "images/bkd.jpeg",
+            "Bánh Kem Hoa Quả": "images/b3.jpeg",
+            "Bánh Kem Chocolate": "images/b17.jpeg",
+            "Bánh Kem Hoa": "images/b18.jpeg",
+            "Donut": "images/dn.jpeg",
+            "Macaron": "images/b1.jpeg",
+            "Tar trứng": "images/b19.jpeg",
+            "Tar Hoa Quả": "images/b20.jpeg",
+            "Cà Phê Sữa Đá": "images/cf.jpeg",
+            "Bạc Xỉu": "images/b2.jpeg",
+            "Matcha Latte": "images/mcha.jpeg",
+            "Trà Đào Cam Sả": "images/b9.jpeg"
+        };
+
+        let rawCart = JSON.parse(localStorage.getItem("cart")) || [];
+        let cart = [];
+
+        rawCart.forEach(item => {
+            let existing = cart.find(c => c.name === item.name);
+            let itemImage = item.image || imageMap[item.name.trim()] || "images/logo.png";
+            let itemQty = item.quantity || 1;
+
+            if (existing) {
+                existing.quantity += itemQty;
+            } else {
+                cart.push({
+                    name: item.name,
+                    price: item.price,
+                    image: itemImage,
+                    quantity: itemQty
+                });
+            }
+        });
+
+        localStorage.setItem("cart", JSON.stringify(cart));
+
+        const cartItemsContainer = document.getElementById("cart-items");
+        const cartTotalPriceElement = document.getElementById("cart-total-price");
+        const cartCountElement = document.getElementById("cart-count");
+
+        function renderCart() {
+            cartItemsContainer.innerHTML = "";
+            let total = 0;
+            let totalItems = 0;
+
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = `<tr><td colspan="6" style="padding: 20px;">Giỏ hàng đang trống!</td></tr>`;
+                cartTotalPriceElement.innerText = "0đ";
+                cartCountElement.innerText = "0";
+                return;
+            }
+
+            cart.forEach((item, index) => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                totalItems += item.quantity;
+
+                const row = document.createElement("tr");
+                row.style.borderBottom = "1px solid #eee";
+                row.innerHTML = `
+                    <td style="padding: 15px;"><img src="${item.image}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 5px;"></td>
+                    <td style="padding: 15px; font-weight: bold;">${item.name}</td>
+                    <td style="padding: 15px;">${item.price.toLocaleString('vi-VN')}đ</td>
+                    <td style="padding: 15px;">
+                        <button class="quantity-btn" style="background: #eee; border: none; padding: 5px 10px; cursor: pointer; font-weight: bold;" onclick="changeQty(${index}, -1)">-</button>
+                        <span style="margin: 0 10px; font-weight: bold;">${item.quantity}</span>
+                        <button class="quantity-btn" style="background: #eee; border: none; padding: 5px 10px; cursor: pointer; font-weight: bold;" onclick="changeQty(${index}, 1)">+</button>
+                    </td>
+                    <td style="padding: 15px; color: #B8875C; font-weight: bold;">${itemTotal.toLocaleString('vi-VN')}đ</td>
+                    <td style="padding: 15px;"><button class="delete-btn" style="background: #ff4d4d; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer;" onclick="deleteItem(${index})">Xóa</button></td>
+                `;
+                cartItemsContainer.appendChild(row);
+            });
+
+            cartTotalPriceElement.innerText = total.toLocaleString('vi-VN') + "đ";
+            cartCountElement.innerText = totalItems;
+        }
+
+        window.changeQty = (index, amount) => {
+            cart[index].quantity += amount;
+            if (cart[index].quantity <= 0) {
+                cart.splice(index, 1);
+            }
+            localStorage.setItem("cart", JSON.stringify(cart));
+            renderCart();
+        };
+
+        window.deleteItem = (index) => {
+            cart.splice(index, 1);
+            localStorage.setItem("cart", JSON.stringify(cart));
+            renderCart();
+        };
+
+        // HÀM XỬ LÝ ẨN HIỆN THÔNG TIN CHUYỂN KHOẢN
+        window.togglePaymentInfo = () => {
+            const selectedMethod = document.querySelector('input[name="payment-method"]:checked').value;
+            const transferInfo = document.getElementById("transfer-info");
+            if (selectedMethod === "transfer") {
+                transferInfo.style.display = "block";
+            } else {
+                transferInfo.style.display = "none";
+            }
+        };
+
+        // HÀM XỬ LÝ KHI BẤM NÚT THANH TOÁN
+        window.processCheckout = () => {
+            if (cart.length === 0) {
+                alert("Giỏ hàng của bạn đang trống!");
+                return;
+            }
+
+            const selectedMethod = document.querySelector('input[name="payment-method"]:checked').value;
+            let methodText = "";
+
+            if (selectedMethod === "cash") {
+                methodText = "Tiền mặt khi nhận hàng (COD)";
+            } else if (selectedMethod === "transfer") {
+                methodText = "Chuyển khoản ngân hàng";
+            } else if (selectedMethod === "card") {
+                methodText = "Thẻ tín dụng / ATM";
+            }
+
+            alert("Đặt hàng thành công!\nPhương thức chọn: " + methodText + "\nCảm ơn bạn đã ủng hộ OURS Bakery!");
+            
+            // Xóa sạch giỏ hàng sau khi đặt thành công
+            localStorage.removeItem("cart");
+            cart = [];
+            renderCart();
+        };
+
+        renderCart();
+    });
+</script>
+</body>
+</html>

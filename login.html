@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Đăng nhập / Đăng ký</title>
+    <style>
+        body { font-family: sans-serif; background: #f9f9f9; }
+        .auth-card { max-width: 400px; margin: 50px auto; padding: 30px; background: white; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        input { width: 100%; padding: 10px; margin: 8px 0; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
+        button { width: 100%; padding: 12px; background: #8B5E3C; color: white; border: none; border-radius: 5px; cursor: pointer; margin-top: 10px; }
+        #extra-fields { display: none; }
+    </style>
+</head>
+<body>
+
+<div class="auth-card">
+    <h2 id="title">Đăng nhập</h2>
+    
+    <input type="text" id="user" placeholder="Tên đăng nhập">
+    <input type="password" id="pass" placeholder="Mật khẩu">
+    
+    <div id="extra-fields">
+        <input type="text" id="fullname" placeholder="Họ và tên">
+        <input type="email" id="email" placeholder="Email">
+        <input type="tel" id="phone" placeholder="Số điện thoại">
+    </div>
+
+    <button id="btn" onclick="process()">Đăng nhập</button>
+    
+    <p style="text-align:center; margin-top:15px;">
+        <span id="text-toggle">Chưa có tài khoản?</span> 
+        <a href="#" onclick="toggleMode()">Đăng ký ngay</a>
+    </p>
+</div>
+
+<script>
+    let isLogin = true;
+
+    function toggleMode() {
+        isLogin = !isLogin;
+        document.getElementById('title').innerText = isLogin ? "Đăng nhập" : "Đăng ký";
+        document.getElementById('btn').innerText = isLogin ? "Đăng nhập" : "Đăng ký";
+        document.getElementById('text-toggle').innerText = isLogin ? "Chưa có tài khoản?" : "Đã có tài khoản?";
+        document.getElementById('extra-fields').style.display = isLogin ? 'none' : 'block';
+    }
+
+    function process() {
+        let u = document.getElementById('user').value;
+        let p = document.getElementById('pass').value;
+        let users = JSON.parse(localStorage.getItem('users')) || {};
+
+        if (!isLogin) {
+            // Logic Đăng ký
+            if (!u || !p) { alert("Vui lòng nhập tên và mật khẩu!"); return; }
+            if (users[u]) { alert("Tên đăng nhập đã tồn tại!"); return; }
+            
+            users[u] = {
+                password: p,
+                fullname: document.getElementById('fullname').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value
+            };
+            
+            localStorage.setItem('users', JSON.stringify(users));
+            alert("Đăng ký thành công!");
+            toggleMode();
+        } else {
+            // Logic Đăng nhập
+            if (users[u] && users[u].password === p) {
+                localStorage.setItem('currentUser', u);
+                alert("Đăng nhập thành công!");
+                window.location.href = "index.html";
+            } else {
+                alert("Tên đăng nhập hoặc mật khẩu sai!");
+            }
+        }
+    }
+</script>
+
+</body>
+</html>

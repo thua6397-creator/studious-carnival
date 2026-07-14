@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ thống Quản trị - OURS Bakery</title>
+</head>
+<body style="font-family: Arial, sans-serif; background-color: #f4f6f9; margin: 0; padding: 0;">
+
+    <!-- HEADER ADMIN -->
+    <header style="background: #343a40; color: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center;">
+        <h2 style="margin: 0; color: #ffc107;">OURS Bakery - Admin Dashboard</h2>
+        <a href="products.html" target="_blank" style="color: #fff; text-decoration: none; font-weight: bold; background: #28a745; padding: 8px 15px; border-radius: 4px;">Xem Cửa Hàng ↗</a>
+    </header>
+
+    <main style="padding: 40px 5%; max-width: 1200px; margin: 0 auto;">
+        
+        <!-- ROW 1: THỐNG KÊ -->
+        <section style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-bottom: 40px;">
+            <div style="background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); border-left: 5px solid #28a745;">
+                <h3 style="margin-top: 0; color: #555;">📈 Tổng sản phẩm đã bán</h3>
+                <h1 id="total-sold" style="margin: 10px 0 0 0; color: #28a745;">0</h1>
+                <p style="font-size: 12px; color: #999; margin: 5px 0 0 0;">(Tính từ các đơn hàng bấm thanh toán thành công)</p>
+            </div>
+            <div style="background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); border-left: 5px solid #dc3545;">
+                <h3 style="margin-top: 0; color: #555;">📦 Tổng sản phẩm trong kho</h3>
+                <h1 id="total-stock" style="margin: 10px 0 0 0; color: #dc3545;">0</h1>
+                <p style="font-size: 12px; color: #999; margin: 5px 0 0 0;">(Mặc định mỗi sản phẩm khởi tạo có sẵn 50 cái)</p>
+            </div>
+        </section>
+
+        <!-- ROW 2: FORM THÊM SẢN PHẨM MỚI -->
+        <section style="background: white; padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 40px;">
+            <h3 style="margin-top: 0; color: #8B5E3C; border-bottom: 2px solid #eee; padding-bottom: 10px;">➕ Thêm sản phẩm mới</h3>
+            <form id="add-product-form" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 15px;">
+                <div>
+                    <label style="display: block; margin-bottom: 5px; font-weight: bold;">Tên sản phẩm:</label>
+                    <input type="text" id="prod-name" required style="width: 95%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                </div>
+                <div>
+                    <label style="display: block; margin-bottom: 5px; font-weight: bold;">Danh mục:</label>
+                    <select id="prod-category" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                        <option value="kem">🎂 Bánh Kem</option>
+                        <option value="nho">🧁 Bánh Nhỏ</option>
+                        <option value="cafe">☕ Cà phê</option>
+                        <option value="do-uong">🥤 Đồ uống</option>
+                    </select>
+                </div>
+                <div>
+                    <label style="display: block; margin-bottom: 5px; font-weight: bold;">Giá tiền (VNĐ):</label>
+                    <input type="number" id="prod-price" required style="width: 95%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                </div>
+                <div>
+                    <label style="display: block; margin-bottom: 5px; font-weight: bold;">Đường dẫn ảnh (URL hoặc images/...):</label>
+                    <input type="text" id="prod-image" placeholder="Ví dụ: images/bkd.jpeg" required style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                </div>
+                <div style="grid-column: span 2; text-align: right; margin-top: 10px;">
+                    <button type="submit" style="background: #8B5E3C; color: white; border: none; padding: 10px 25px; border-radius: 4px; font-weight: bold; cursor: pointer;">Lưu sản phẩm</button>
+                </div>
+            </form>
+        </section>
+
+        <!-- ROW 3: DANH SÁCH QUẢN LÝ VÀ TỒN KHO -->
+        <section style="background: white; padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+            <h3 style="margin-top: 0; color: #333; border-bottom: 2px solid #eee; padding-bottom: 10px;">📋 Danh sách sản phẩm & Tồn kho</h3>
+            <table style="width: 100%; border-collapse: collapse; margin-top: 15px; text-align: left;">
+                <thead>
+                    <tr style="background: #f8f9fa; border-bottom: 2px solid #dee2e6;">
+                        <th style="padding: 12px;">Ảnh</th>
+                        <th style="padding: 12px;">Tên sản phẩm</th>
+                        <th style="padding: 12px;">Danh mục</th>
+                        <th style="padding: 12px;">Đơn giá</th>
+                        <th style="padding: 12px; color: #28a745;">Đã bán</th>
+                        <th style="padding: 12px; color: #dc3545;">Tồn kho</th>
+                        <th style="padding: 12px; text-align: center;">Hành động</th>
+                    </tr>
+                </thead>
+                <tbody id="admin-product-list">
+                    <!-- Data render tự động -->
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Danh sách 12 sản phẩm gốc ban đầu của bạn (nếu hệ thống chưa có dữ liệu sẽ tự tạo)
+            const defaultProducts = [
+                { id: 1, name: "Bánh Kem Dâu", category: "kem", price: 350000, image: "images/bkd.jpeg", stock: 50 },
+                { id: 2, name: "Bánh Kem Hoa Quả", category: "kem", price: 450000, image: "images/b3.jpeg", stock: 50 },
+                { id: 3, name: "Bánh Kem Chocolate", category: "kem", price: 450000, image: "images/b17.jpeg", stock: 50 },
+                { id: 4, name: "Bánh Kem Hoa", category: "kem", price: 750000, image: "images/b18.jpeg", stock: 50 },
+                { id: 5, name: "Donut", category: "nho", price: 45000, image: "images/dn.jpeg", stock: 50 },
+                { id: 6, name: "Macaron", category: "nho", price: 100000, image: "images/b1.jpeg", stock: 50 },
+                { id: 7, name: "Tar trứng", category: "nho", price: 45000, image: "images/b19.jpeg", stock: 50 },
+                { id: 8, name: "Tar Hoa Quả", category: "nho", price: 70000, image: "images/b20.jpeg", stock: 50 },
+                { id: 9, name: "Cà Phê Sữa Đá", category: "cafe", price: 35000, image: "images/cf.jpeg", stock: 50 },
+                { id: 10, name: "Bạc Xỉu", category: "cafe", price: 40000, image: "images/b2.jpeg", stock: 50 },
+                { id: 11, name: "Matcha Latte", category: "do-uong", price: 55000, image: "images/mcha.jpeg", stock: 50 },
+                { id: 12, name: "Trà Đào Cam Sả", category: "do-uong", price: 45000, image: "images/b9.jpeg", stock: 50 }
+            ];
+
+            // Đọc dữ liệu từ kho lưu trữ LocalStorage
+            let products = JSON.parse(localStorage.getItem("store_products")) || defaultProducts;
+            let salesReport = JSON.parse(localStorage.getItem("sales_report")) || {};
+
+            if(!localStorage.getItem("store_products")){
+                localStorage.setItem("store_products", JSON.stringify(products));
+            }
+
+            const productListContainer = document.getElementById("admin-product-list");
+            const totalSoldEl = document.getElementById("total-sold");
+            const totalStockEl = document.getElementById("total-stock");
+
+            // Hàm hiển thị danh sách sản phẩm và cập nhật số liệu
+            function renderAdminPage() {
+                productListContainer.innerHTML = "";
+                let totalSoldItems = 0;
+                let totalStockItems = 0;
+
+                products.forEach((product) => {
+                    const soldCount = salesReport[product.name] || 0; // Lấy số lượng đã bán từ lịch sử
+                    const currentStock = Math.max(0, product.stock - soldCount); // Tính hàng tồn kho thực tế
+
+                    totalSoldItems += soldCount;
+                    totalStockItems += currentStock;
+
+                    let catName = "";
+                    if (product.category === 'kem') catName = "Bánh Kem";
+                    else if (product.category === 'nho') catName = "Bánh Nhỏ";
+                    else if (product.category === 'cafe') catName = "Cà phê";
+                    else if (product.category === 'do-uong') catName = "Đồ uống";
+
+                    const row = document.createElement("tr");
+                    row.style.borderBottom = "1px solid #eee";
+                    row.innerHTML = `
+                        <td style="padding: 10px;"><img src="${product.image}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px;"></td>
+                        <td style="padding: 10px; font-weight: bold;">${product.name}</td>
+                        <td style="padding: 10px;"><span style="background: #e9ecef; padding: 4px 8px; border-radius: 4px; font-size: 13px;">${catName}</span></td>
+                        <td style="padding: 10px;">${product.price.toLocaleString('vi-VN')}đ</td>
+                        <td style="padding: 10px; color: #28a745; font-weight: bold;">${soldCount} cái</td>
+                        <td style="padding: 10px; color: #dc3545; font-weight: bold;">${currentStock} cái</td>
+                        <td style="padding: 10px; text-align: center;">
+                            <button onclick="deleteProduct(${product.id})" style="background: #dc3545; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer;">Xóa</button>
+                        </td>
+                    `;
+                    productListContainer.appendChild(row);
+                });
+
+                totalSoldEl.innerText = totalSoldItems + " cái";
+                totalStockEl.innerText = totalStockItems + " cái";
+            }
+
+            // HÀM XỬ LÝ THÊM SẢN PHẨM
+            document.getElementById("add-product-form").addEventListener("submit", (e) => {
+                e.preventDefault();
+                
+                const name = document.getElementById("prod-name").value.trim();
+                const category = document.getElementById("prod-category").value;
+                const price = parseInt(document.getElementById("prod-price").value);
+                const image = document.getElementById("prod-image").value.trim();
+
+                const newProduct = {
+                    id: Date.now(), // tạo ID ngẫu nhiên bằng timestamp
+                    name: name,
+                    category: category,
+                    price: price,
+                    image: image,
+                    stock: 50 // Mặc định kho nhập 50 chiếc ban đầu
+                };
+
+                products.push(newProduct);
+                localStorage.setItem("store_products", JSON.stringify(products));
+                
+                alert("Đã thêm thành công sản phẩm: " + name);
+                document.getElementById("add-product-form").reset();
+                renderAdminPage();
+            });
+
+            // HÀM XỬ LÝ XÓA SẢN PHẨM
+            window.deleteProduct = (id) => {
+                if(confirm("Bạn có chắc chắn muốn xóa sản phẩm này không?")) {
+                    products = products.filter(p => p.id !== id);
+                    localStorage.setItem("store_products", JSON.stringify(products));
+                    renderAdminPage();
+                }
+            };
+
+            renderAdminPage();
+        });
+    </script>
+</body>
+</html>

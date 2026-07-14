@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ours Bakery</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+<header style="background: #fff; padding: 20px 10%; border-bottom: 2px solid #F5E9DD; display: flex; justify-content: space-between; align-items: center;">
+    <!-- LOGO BÊN TRÁI -->
+    <div class="logo">
+        <a href="index.html" style="text-decoration: none; display: flex; align-items: center; gap: 10px;">
+            <img src="images/logo.png" alt="Logo" style="width: 50px; height: 50px; border-radius: 50%;">
+            <span style="font-size: 24px; font-weight: bold; color: #8B5E3C;">OURS Bakery</span>
+        </a>
+    </div>
+
+    <!-- MENU BÊN PHẢI -->
+    <nav>
+        <a href="index.html" style="margin: 0 15px; text-decoration: none; color: #555;">Trang chủ</a>
+        <a href="products.html" style="margin: 0 15px; text-decoration: none; color: #555;">Sản phẩm</a>
+        <a href="about.html" style="margin: 0 15px; text-decoration: none; color: #555;">Giới thiệu</a>
+        <a href="contact.html" style="margin: 0 15px; text-decoration: none; color: #555;">Liên hệ</a>
+        <a href="cart.html" style="margin: 0 15px; text-decoration: none; color: #B8875C; font-weight: bold;">
+            🛒 Giỏ hàng (<span id="cart-count">0</span>)
+        </a>
+        <a href="login.html" id="auth-link" style="background: #B8875C; color: white; padding: 5px 15px; border-radius: 5px;">Đăng nhập</a>
+    </nav>
+</header>
+
+<!-- 2. BANNER (Cái ảnh cần tràn viền - NẰM NGOÀI MỌI CONTAINER) -->
+<section class="banner-full" style="position: relative; width: 100%; height: 400px;">
+    <img src="images/banner.png" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+    
+    <!-- Chữ đè lên ảnh -->
+    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.3); display: flex; flex-direction: column; justify-content: center; align-items: center; color: white;">
+        <h1>Chào mừng đến với OURS Bakery</h1>
+        <p>Bánh tươi mỗi ngày - Tinh hoa từ những nguyên liệu chọn lọc</p>
+        <button>Khám phá ngay</button>
+    </div>
+</section>
+
+<!-- 3. PHẦN NỘI DUNG CHÍNH (Phần này mới cần thụt vào 10%) -->
+<main style="padding: 50px 10%;">
+
+    <section class="category">
+        <h2>Danh mục sản phẩm</h2>
+       <div class="category-container" style="display: flex; gap: 20px; justify-content: center; width: 100%; flex-wrap: nowrap;">
+            <!-- Bánh sinh nhật (Mã: sinh-nhat) -->
+            <a href="products.html?category=sinh-nhat" style="text-decoration: none; color: inherit;">
+                <div class="category-card"><img src="images/b3.jpeg"><h3>🎂 Bánh sinh nhật</h3></div>
+            </a>
+
+            <!-- Bánh ngọt (Mã: ngot) -->
+            <a href="products.html?category=ngot" style="text-decoration: none; color: inherit;">
+                <div class="category-card"><img src="images/b2.jpeg"><h3>🧁 Bánh ngọt</h3></div>
+            </a>
+
+            <!-- Cà phê (Mã: cafe) -->
+            <a href="products.html?category=cafe" style="text-decoration: none; color: inherit;">
+                <div class="category-card"><img src="images/cf.jpeg"><h3>☕ Cà phê</h3></div>
+            </a>
+
+            <!-- Đồ uống (Mã: do-uong) -->
+            <a href="products.html?category=do-uong" style="text-decoration: none; color: inherit;">
+                <div class="category-card"><img src="images/mcha.jpeg"><h3>🥤 Đồ uống</h3></div>
+            </a>
+            
+        </div>
+    </section>
+
+    <!-- SẢN PHẨM -->
+    <section class="product">
+        <h2>Sản phẩm nổi bật</h2>
+        <div class="product-container">
+
+            <div class="product-card">
+                <img src="images/bkd.jpeg">
+                <h3>Bánh Kem Dâu</h3>
+                <p>350.000đ</p>
+                <button class="add-to-cart-btn" data-id="banhkemdau" data-name="Bánh Kem Dâu" data-price="350000" data-image="images/bkd.jpeg">Thêm vào giỏ</button>
+            </div>
+
+            <div class="product-card">
+                <img src="images/b16.jpeg">
+                <h3>Red Velvet</h3>
+                <p>420.000đ</p>
+                <button class="add-to-cart-btn" data-id="redvelvet" data-name="Red Velvet" data-price="420000" data-image="images/b16.jpeg">Thêm vào giỏ</button>
+            </div>
+
+            <div class="product-card">
+                <img src="images/C.jpeg">
+                <h3>Cheesecake</h3>
+                <p>180.000đ</p>
+                <button class="add-to-cart-btn" data-id="cheesecake" data-name="Cheese Cake" data-price="180000" data-image="images/C.jpeg">Thêm vào giỏ</button>
+            </div>
+
+            <div class="product-card">
+                <img src="images/cscl.jpeg">
+                <h3>Cupcake Chocolate</h3>
+                <p>55.000đ</p>
+                <button class="add-to-cart-btn" data-id="cupcakechocolate" data-name="Cupcake Chocolate" data-price="55000" data-image="images/cscl.jpeg">Thêm vào giỏ</button>
+            </div>
+
+            <div class="product-card">
+                <img src="images/dn.jpeg">
+                <h3>Donut</h3>
+                <p>45.000đ</p>
+                <button class="add-to-cart-btn" data-id="donut" data-name="Donut" data-price="45000" data-image="images/dn.jpeg">Thêm vào giỏ</button>
+            </div>
+
+            <div class="product-card">
+                <img src="images/mc.jpeg">
+                <h3>Macaron</h3>
+                <p>95.000đ</p>
+                <button class="add-to-cart-btn" data-id="macaron" data-name="Macaron" data-price="95000" data-image="images/mc.jpeg">Thêm vào giỏ</button>
+            </div>
+
+            <div class="product-card">
+                <img src="images/ss.jpeg">
+                <h3>Croissant</h3>
+                <p>40.000đ</p>
+                <button class="add-to-cart-btn" data-id="croissant" data-name="Croissant" data-price="40000" data-image="images/ss.jpeg">Thêm vào giỏ</button>
+            </div>
+
+            <div class="product-card">
+                <img src="images/b17.jpeg">
+                <h3>Cookie Chocolate</h3>
+                <p>65.000đ</p>
+                <button class="add-to-cart-btn" data-id="cookie-chocolate" data-name="Cookie Chocolate" data-price="65000" data-image="images/b17.jpeg">Thêm vào giỏ</button>
+            </div>
+
+            <div class="product-card">
+                <img src="images/b9.jpeg">
+                <h3>Hamburger</h3>
+                <p>65.000đ</p>
+                <button class="add-to-cart-btn" data-id="hamburger" data-name="Hamburger" data-price="65000" data-image="images/b9.jpeg">Thêm vào giỏ</button>
+            </div>
+
+            <div class="product-card">
+                <img src="images/b10.jpeg">
+                <h3>Bánh Mì</h3>
+                <p>45.000đ</p>
+                <button class="add-to-cart-btn" data-id="banhmi" data-name="Bánh Mì" data-price="45000" data-image="images/b10.jpeg">Thêm vào giỏ</button>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="sale">
+        <h2>Ưu đãi hôm nay</h2>
+        <div class="sale-box">
+            <h3>Mua 2 tặng 1</h3>
+            <p>Áp dụng cho Cupcake và Donut.</p>
+            <button onclick="window.location.href='products.html'">Xem ngay</button>
+        </div>
+    </section>
+
+    <section class="review">
+        <h2>Khách hàng nói gì?</h2>
+        <div class="review-container">
+            <div class="review-card">
+                <p>⭐⭐⭐⭐⭐</p>
+                <p>"Bánh rất ngon, giao hàng nhanh."</p>
+                <strong>- Minh Anh</strong>
+            </div>
+            <div class="review-card">
+                <p>⭐⭐⭐⭐⭐</p>
+                <p>"Không gian quán đẹp, cà phê thơm."</p>
+                <strong>- Hải Nam</strong>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    <h3>Ours Bakery</h3>
+    <p>Địa chỉ: Hà Nội</p>
+    <p>Hotline: 0123 456 789</p>
+    <p>© 2026 Ours Bakery</p>
+</footer>
+
+<script>
+    // XỬ LÝ ĐĂNG NHẬP / ĐĂNG XUẤT
+    if (localStorage.getItem('isLoggedIn') === 'true') {
+        let link = document.getElementById('auth-link');
+        if (link) {
+            link.innerText = "Đăng xuất";
+            link.href = "#";
+            link.onclick = function() {
+                localStorage.removeItem('isLoggedIn');
+                window.location.reload();
+            };
+        }
+    }
+
+    // XỬ LÝ GIỎ HÀNG
+    document.addEventListener("DOMContentLoaded", () => {
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        
+        function updateCartBadge() {
+            const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+            const cartCountElement = document.getElementById("cart-count");
+            if (cartCountElement) {
+                cartCountElement.innerText = totalItems;
+            }
+        }
+        updateCartBadge();
+
+        document.querySelectorAll(".add-to-cart-btn").forEach(button => {
+            button.addEventListener("click", () => {
+                const id = button.getAttribute("data-id");
+                const name = button.getAttribute("data-name").trim();
+                const price = parseFloat(button.getAttribute("data-price"));
+                const image = button.getAttribute("data-image");
+
+                const existingIndex = cart.findIndex(item => item.id === id);
+                if (existingIndex !== -1) {
+                    cart[existingIndex].quantity = (cart[existingIndex].quantity || 1) + 1;
+                } else {
+                    cart.push({ id, name, price, image, quantity: 1 });
+                }
+                
+                localStorage.setItem("cart", JSON.stringify(cart));
+                updateCartBadge();
+                alert("Đã thêm " + name + " vào giỏ hàng thành công!");
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
